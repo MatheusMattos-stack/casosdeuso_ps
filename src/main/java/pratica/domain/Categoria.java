@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.web.bind.annotation.*;
 
 import pratica.domain.Categoria;
+import pratica.resources.CategoriaResources;
+
 
 @RestController
 @RequestMapping(value="/categorias")
 
-public class CategoriaResource {
+public class Categoria {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public List<CategoriaResources> listar() {

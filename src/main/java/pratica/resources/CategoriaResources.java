@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.*;
-import javax.persistence.Id;
 
 @Entity
 public class CategoriaResources implements Serializable{
