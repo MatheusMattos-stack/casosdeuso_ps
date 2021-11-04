@@ -1,6 +1,7 @@
 package pratica.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -54,7 +55,14 @@ public class Categoria implements Serializable{
 			return false;
 		Categoria other = (Categoria) obj;
 		return Objects.equals(id, other.id);
-	}	
+	}
+
+	public List getProdutos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }
 
