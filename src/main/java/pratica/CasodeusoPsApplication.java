@@ -9,7 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import pratica.domain.Categoria;
 import pratica.repositories.CategoriaRepository;
 import pratica.repositories.ProdutoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import pratica.domain.Categoria;
+import pratica.domain.Produto;
+import pratica.repositories.CategoriaRepository;
+import pratica.repositories.ProdutoRepository;
 
 @SpringBootApplication
 public class CasodeusoPsApplication implements CommandLineRunner{

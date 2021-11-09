@@ -1,6 +1,7 @@
 package pratica.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +14,10 @@ public class Categoria implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	@ManyToMany(mappedBy = "Categorias")
+	private List<Produto> produtos = new ArrayList<>(); 
+	
 	
 	public Categoria() { //com esse construtor é possível instanciar objetos sem jogar nada para os atributos
 		
