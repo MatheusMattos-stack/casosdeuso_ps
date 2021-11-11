@@ -1,6 +1,5 @@
 package pratica.domain;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
