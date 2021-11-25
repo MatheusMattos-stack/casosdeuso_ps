@@ -16,17 +16,56 @@ public class Estado implements Serializable{
 	private String nome;
 	
 	@ManyToMany(mappedBy = "Estados")
-	private List<Estado> estados = new ArrayList<>(); 
+	private List<Cidade> cidade = new ArrayList<>(); 
 	
 	
 	public Estado() { //com esse construtor é possível instanciar objetos sem jogar nada para os atributos
 		
 	}
 
+
+	public Estado(Integer id, String nome, List<Cidade> cidades) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cidade = cidade;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public String getNome() {
+		return nome;
+	}
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
+	public List<Cidade> getCidades() {
+		return cidade;
+	}
+
+
+	public void setCidades(List<Cidade> cidades) {
+		this.cidade = cidade;
+	}
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(cidade, id, nome);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -37,37 +76,9 @@ public class Estado implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Estado other = (Estado) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(cidade, other.cidade) && Objects.equals(id, other.id)
+				&& Objects.equals(nome, other.nome);
 	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public List<Estado> getEstados() {
-		return estados;
-	}
-
-	public void setEstados(List<Estado> estados) {
-		this.estados = estados;
-	}
-
-	public Estado(Integer id, String nome, List<Estado> estados) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.estados = estados;
-	}
+	
+	
 }
