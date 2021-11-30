@@ -1,6 +1,11 @@
 package pratica.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -8,37 +13,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import pratica.domain.enums.TipoCliente;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
+@Entity
 public class Cliente implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	private Integer id;
 	private String nome;
 	private String email;
 	private String cpfOuCnpj;
-	private Integer tipo;
+	private Integer tipo; //Internamente o TipoCliente vai ser armazenado como um inteiro
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	@ElementCollection
 	@CollectionTable(name = "Telefone")
-	private Set<String> telefones = new HashSet<>();
+	private Set<String> telefones = new HashSet<>(); //Representação da classe Telefone por um conjunto de Strings
 	
-	public Cliente() { //com esse construtor é possível instanciar objetos sem jogar nada para os atributos
-		
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+	
+	public Cliente(){	
 	}
 
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
@@ -82,6 +84,14 @@ public class Cliente implements Serializable{
 		this.cpfOuCnpj = cpfOuCnpj;
 	}
 
+	public TipoCliente getTipo() {
+		return TipoCliente.toEnum(tipo);
+	}
+
+	public void setTipo(TipoCliente tipo) {
+		this.tipo = tipo.getCod();
+	}
+
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -97,18 +107,16 @@ public class Cliente implements Serializable{
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
-
-	public Integer getTipo() {
-		return tipo;
+	public List<Pedido> getPedidos() {
+		return pedidos;
 	}
 
-	public void setTipo(TipoCliente tipo) {
-		this.tipo = tipo.getCod();
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(cpfOuCnpj, email, enderecos, id, nome, telefones, tipo);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -120,14 +128,8 @@ public class Cliente implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		return Objects.equals(cpfOuCnpj, other.cpfOuCnpj) && Objects.equals(email, other.email)
-				&& Objects.equals(enderecos, other.enderecos) && Objects.equals(id, other.id)
-				&& Objects.equals(nome, other.nome) && Objects.equals(telefones, other.telefones)
-				&& Objects.equals(tipo, other.tipo);
-	}	
+		return Objects.equals(id, other.id);
+	}
+	
 }
-	
-	
-	
-	
 	
